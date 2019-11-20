@@ -52,7 +52,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "Day10"
+            argument = "--day 10"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
