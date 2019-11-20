@@ -9,18 +9,21 @@
 
 import Foundation
 
-if CommandLine.arguments.contains("--help"), CommandLine.arguments.count == 2 {
-    AdventOfCode.explain()
-    exit(0)
-}
-else if CommandLine.arguments.contains("--all"), CommandLine.arguments.count == 2 {
+if CommandLine.arguments.count == 1 || CommandLine.arguments.count == 2 && CommandLine.arguments.last == "--all" {
     for dayNumber in 1...25 {
         AdventOfCode.solve(day: dayNumber)
     }
     exit(0)
 }
-else if CommandLine.arguments.contains("--day"), CommandLine.arguments.count == 3 {
+
+if CommandLine.arguments.count == 2 && CommandLine.arguments.last == "--help" {
+    AdventOfCode.explain()
+    exit(0)
+}
+
+if CommandLine.arguments.count == 3 && CommandLine.arguments[1] == "--day" {
     guard let day = CommandLine.arguments.last, let dayNumber = Int(day) else {
+        print("Error: Day number should be between within the range [1-25]")
         AdventOfCode.explain()
         exit(1)
     }
@@ -28,5 +31,6 @@ else if CommandLine.arguments.contains("--day"), CommandLine.arguments.count == 
     exit(0)
 }
 
+print("Error: unrecognized arguments")
 AdventOfCode.explain()
 exit(1)

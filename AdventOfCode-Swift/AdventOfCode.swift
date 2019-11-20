@@ -86,12 +86,7 @@ protocol Day {
 }
 
 extension Day {
-    static func solve() {
-        // TODO dynamic boolean using DEBUG & RELEASE build scheme
-        solve(withTimeSpan: true)
-    }
-
-    static func solve(withTimeSpan: Bool) {
+    static func solve(withTimeSpan: Bool = true) {
         guard let input = try? Input.get("\(Self.self)") else {
             print("Could not open input file Days/\(Self.self)/input.txt")
             return
@@ -103,15 +98,13 @@ extension Day {
         run(input: input)
         let end = CACurrentMediaTime()
 
+        print("Solved \(Self.self)")
         if withTimeSpan {
             let elapsed = end - start
             let formatter = NumberFormatter()
             formatter.minimumIntegerDigits = 1
             formatter.maximumFractionDigits = 3
-            print("Solved \(Self.self) in \(formatter.string(from: NSNumber(value: elapsed))!)s")
-        }
-        else {
-            print("Solved \(Self.self)")
+            print("Elapsed time: \(formatter.string(from: NSNumber(value: elapsed))!)s")
         }
 
         print("---------------------")
