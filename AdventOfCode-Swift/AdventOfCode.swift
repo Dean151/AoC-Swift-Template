@@ -8,7 +8,6 @@
 //
 
 import Foundation
-import QuartzCore
 
 enum AdventOfCode {
     /// Print an helper instructions to end-user to acknoledge existing commands
@@ -20,6 +19,7 @@ enum AdventOfCode {
         print("./AdventOfCode-Swift --help : Show this explaination: ``")
         print("")
         print("More documentation on https://github.com/Dean151/Advent-of-code-Swift-Starter")
+        print("If you have problem using this template, fill Github issues ; and/or ask me on Twitter @deanatoire")
     }
 
     /// Will solve given day output
@@ -94,9 +94,9 @@ extension Day {
 
         print("Solving \(Self.self)")
 
-        let start = CACurrentMediaTime()
+        let start = DispatchTime.now()
         run(input: input)
-        let end = CACurrentMediaTime()
+        let end = DispatchTime.now()
 
         print("Solved \(Self.self)")
         if withTimeSpan {

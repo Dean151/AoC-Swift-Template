@@ -50,6 +50,8 @@
 
 /* Begin PBXFileReference section */
 		710D9373238541B90050BD59 /* AdventOfCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventOfCode.swift; sourceTree = "<group>"; };
+		71F4D8A0238FDAC500E27D74 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		71F4D8A1238FDACB00E27D74 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E981328923849CBA0004E844 /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
 		E981328A23849CBA0004E844 /* Day01.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day01.swift; sourceTree = "<group>"; };
 		E981328C23849CC40004E844 /* Day02.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day02.swift; sourceTree = "<group>"; };
@@ -375,6 +377,8 @@
 		E9F3CF2023849691005B8B13 = {
 			isa = PBXGroup;
 			children = (
+				71F4D8A1238FDACB00E27D74 /* LICENSE */,
+				71F4D8A0238FDAC500E27D74 /* README.md */,
 				E9F3CF2B23849691005B8B13 /* AdventOfCode-Swift */,
 				E9F3CF2A23849691005B8B13 /* Products */,
 			);
