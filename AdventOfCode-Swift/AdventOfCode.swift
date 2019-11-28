@@ -100,7 +100,7 @@ extension Day {
 
         print("Solved \(Self.self)")
         if withTimeSpan {
-            let elapsed = end - start
+            let elapsed = Double(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
             let formatter = NumberFormatter()
             formatter.minimumIntegerDigits = 1
             formatter.maximumFractionDigits = 3
