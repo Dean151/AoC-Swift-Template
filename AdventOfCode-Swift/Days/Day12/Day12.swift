@@ -1,7 +1,7 @@
 
 import Foundation
 
-class Day12: Day {
+struct Day12: Day {
     static func run(input: String) {
         // TODO: Implement Day 12
         print("Day 12 is not yet implemented")
