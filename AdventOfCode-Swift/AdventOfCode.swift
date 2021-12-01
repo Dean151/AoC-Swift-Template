@@ -82,20 +82,43 @@ enum AdventOfCode {
 }
 
 protocol Day {
-    static func run(input: String)
+    /// Required to run the day problem
+    static func run(input: String) throws
+
+    /// Required to propose tests
+    static func test() throws
+}
+extension Day {
+    /// Override to replace file input
+    static var input: String! { nil }
 }
 
 extension Day {
     static func solve(withTimeSpan: Bool = true) {
-        guard let input = try? Input.get("\(Self.self)") else {
-            print("Could not open input file Days/\(Self.self)/input.txt")
-            return
+        do {
+            try test()
+        } catch {
+            fatalError("An error occured while executing \(Self.self).test() : \(error)")
+        }
+
+        let input: String
+        if Self.input != nil {
+            input = Self.input
+        } else if let fileInput = try? Input.getFromFile("\(Self.self)") {
+            input = fileInput
+        } else {
+            fatalError("No input either in (Self.self).input ; nor input file Days/\(Self.self)/input.txt")
         }
 
         print("Solving \(Self.self)")
 
         let start = DispatchTime.now()
-        run(input: input)
+        do {
+            try run(input: input)
+        } catch {
+            fatalError("An error occured while executing \(Self.self).run(input:) : \(error)")
+        }
+
         let end = DispatchTime.now()
 
         print("Solved \(Self.self)")
@@ -111,15 +134,26 @@ extension Day {
     }
 }
 
+enum Errors: Error {
+    case noInput
+    case unparsable
+    case unsolvable
+}
+
 enum Input {
     static let projectUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
 
-    static func get(_ day: String) throws -> String {
-        let url = projectUrl.appendingPathComponent("Days/\(day)/input.txt")
+    static func getFromFile(_ day: String, file: String = "input") throws -> String {
+        let url = projectUrl.appendingPathComponent("Days/\(day)/\(file).txt")
         let inputData = try Data(contentsOf: url)
         guard let input = String(data: inputData, encoding: .utf8) else {
-            throw NSError() as Error
+            throw Errors.noInput
         }
-        return input
+        // Remove last empty line, added for git by Xcode
+        var components = input.components(separatedBy: .newlines)
+        if let last = components.last, last.isEmpty {
+            components.removeLast()
+        }
+        return components.joined(separator: "\n")
     }
 }

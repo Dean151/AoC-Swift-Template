@@ -117,6 +117,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E938756B275782F400CEEE72 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		E9813269238499B00004E844 /* Days */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,6 +402,7 @@
 		E9F3CF2B23849691005B8B13 /* AdventOfCode-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				E938756B275782F400CEEE72 /* Shared */,
 				E9813269238499B00004E844 /* Days */,
 				710D9373238541B90050BD59 /* AdventOfCode.swift */,
 				E9F3CF2C23849691005B8B13 /* main.swift */,
