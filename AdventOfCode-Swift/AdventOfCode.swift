@@ -83,10 +83,10 @@ enum AdventOfCode {
 
 protocol Day {
     /// Required to run the day problem
-    static func run(input: String) throws
+    static func run(input: String) async throws
 
     /// Required to propose tests
-    static func test() throws
+    static func test() async throws
 }
 extension Day {
     /// Override to replace file input
@@ -95,8 +95,14 @@ extension Day {
 
 extension Day {
     static func solve(withTimeSpan: Bool = true) {
+        Task {
+            await solve(withTimeSpan: withTimeSpan)
+        }
+    }
+
+    static func solve(withTimeSpan: Bool = true) async {
         do {
-            try test()
+            try await test()
         } catch {
             fatalError("An error occured while executing \(Self.self).test() : \(error)")
         }
@@ -114,7 +120,7 @@ extension Day {
 
         let start = DispatchTime.now()
         do {
-            try run(input: input)
+            try await run(input: input)
         } catch {
             fatalError("An error occured while executing \(Self.self).run(input:) : \(error)")
         }
