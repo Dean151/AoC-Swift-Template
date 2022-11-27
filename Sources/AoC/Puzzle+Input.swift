@@ -15,8 +15,7 @@ public enum InputError: Error {
 }
 
 extension Puzzle {
-    /// The separator to use for the component separation
-    public static var componentsSeparator: CharacterSet { .newlines }
+    public static var componentsSeparator: CharacterSet? { .newlines }
 
     static var inputFile: URL {
         Bundle.main.bundleURL.appending(path: "AdventOfCode_\(self.self).bundle/Contents/Resources/input.txt")
@@ -43,7 +42,12 @@ extension Puzzle where Input: Parsable {
 // Thanks @franklefebvre for this generic constraint syntax :)
 extension Puzzle where Input: Sequence, Input.Element: Parsable {
     public static func transform(raw: String) throws -> [Input.Element] {
-        try raw.components(separatedBy: componentsSeparator).map {
+        guard let componentsSeparator else {
+            return try raw.map({ char in
+                try .parse(raw: String(char))
+            })
+        }
+        return try raw.components(separatedBy: componentsSeparator).map {
             try .parse(raw: $0)
         }
     }
