@@ -23,7 +23,7 @@ struct Day22: Puzzle {
 // MARK: - PART 1
 
 extension Day22 {
-    static var partOneExpectations: [Expectation<Input, OutputPartOne>] {
+    static var partOneExpectations: [any Expectation<Input, OutputPartOne>] {
         [
             // TODO: add expectations for part 1
         ]
@@ -38,7 +38,7 @@ extension Day22 {
 // MARK: - PART 2
 
 extension Day22 {
-    static var partTwoExpectations: [Expectation<Input, OutputPartTwo>] {
+    static var partTwoExpectations: [any Expectation<Input, OutputPartTwo>] {
         [
             // TODO: add expectations for part 2
         ]

@@ -12,29 +12,63 @@ public enum TestError: Error {
     case expectationFailed(message: String)
 }
 
-public struct Expectation<Input, Output> {
-    public let input: Input
+public protocol Expectation<Input, Output> {
+    associatedtype Input
+    associatedtype Output
+
+    var expectation: Output { get }
+    func getInput() async throws -> Input
+}
+
+extension Puzzle {
+    /// Basic assertion from Input -> Output
+    public static func assert<Output>(expectation: Output, from input: Input) -> SimpleExpectation<Input, Output> {
+        SimpleExpectation(input: input, expectation: expectation)
+    }
+
+    public static func assert<Output>(expectation: Output, fromRaw raw: String) -> TransformExpectation<Input, Output> {
+        TransformExpectation(raw: raw, expectation: expectation, transformer: transform)
+    }
+}
+
+public struct SimpleExpectation<Input, Output>: Expectation {
+    let input: Input
     public let expectation: Output
 
-    public static func assertThat(_ input: Input, willOutput expectation: Output) -> Self {
-        Self(input: input, expectation: expectation)
+    public func getInput() -> Input {
+        input
+    }
+}
+
+public struct TransformExpectation<Input, Output>: Expectation {
+    let raw: String
+    public let expectation: Output
+    let transformer: (String) async throws -> Input
+
+    public func getInput() async throws -> Input {
+        do {
+            return try await transformer(raw)
+        } catch {
+            throw TestError.expectationFailed(message: "Could not parse raw input: `\(raw)` with error: \(error)")
+        }
     }
 }
 
 extension Puzzle {
-    public static var partOneExpectations: [Expectation<Input, OutputPartOne>] {
+    public static var partOneExpectations: [any Expectation<Input, OutputPartOne>] {
         []
     }
 
-    public static var partTwoExpectations: [Expectation<Input, OutputPartTwo>] {
+    public static var partTwoExpectations: [any Expectation<Input, OutputPartTwo>] {
         []
     }
 
-    static func testExpectations<Output: Equatable>(_ expectations: [Expectation<Input, Output>], callable: (Input) async throws -> Output) async throws {
+    static func testExpectations<Output: Equatable>(_ expectations: [any Expectation<Input, Output>], callable: (Input) async throws -> Output) async throws {
         for test in expectations {
-            let result = try await callable(test.input)
+            let input = try await test.getInput()
+            let result = try await callable(input)
             guard test.expectation == result else {
-                throw TestError.expectationFailed(message: "\(result) do not match expected \(test.expectation) for `\(test.input)`")
+                throw TestError.expectationFailed(message: "\(result) do not match expected \(test.expectation) for `\(input)`")
             }
         }
     }

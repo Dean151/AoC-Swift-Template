@@ -13,12 +13,15 @@ public protocol Puzzle<Input, OutputPartOne, OutputPartTwo> {
     associatedtype OutputPartOne
     associatedtype OutputPartTwo
 
-    /// Should provide input for the given puzzle
-    /// Some default implementation are provided for when the file input.txt exists
-    static func input() async throws -> Input
+    /// Should provide raw input for the given puzzle
+    /// A default implementation are provided for when the file input.txt exists
+    static func rawInput() async throws -> String
 
-    static var partOneExpectations: [Expectation<Input, OutputPartOne>] { get }
-    static var partTwoExpectations: [Expectation<Input, OutputPartTwo>] { get }
+    /// Should transform the raw string input into the required Input
+    static func transform(raw: String) async throws -> Input
+
+    static var partOneExpectations: [any Expectation<Input, OutputPartOne>] { get }
+    static var partTwoExpectations: [any Expectation<Input, OutputPartTwo>] { get }
 
     /// Should solve the first part of the puzzle
     static func solvePartOne(_ input: Input) async throws -> OutputPartOne

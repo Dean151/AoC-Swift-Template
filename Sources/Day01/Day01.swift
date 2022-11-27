@@ -17,30 +17,29 @@ import Common
 struct Day01: Puzzle {
     // TODO: Start by defining your input/output types :)
     typealias Input = String
-    typealias OutputPartOne = Int
+    typealias OutputPartOne = Never
     typealias OutputPartTwo = Never
 }
 
 // MARK: - PART 1
 
 extension Day01 {
-    static var partOneExpectations: [Expectation<Input, OutputPartOne>] {
+    static var partOneExpectations: [any Expectation<Input, OutputPartOne>] {
         [
-            .assertThat("", willOutput: 1),
             // TODO: add expectations for part 1
         ]
     }
 
     static func solvePartOne(_ input: Input) async throws -> OutputPartOne {
         // TODO: Solve part 1 :)
-        return 0
+        throw ExecutionError.notSolved
     }
 }
 
 // MARK: - PART 2
 
 extension Day01 {
-    static var partTwoExpectations: [Expectation<Input, OutputPartTwo>] {
+    static var partTwoExpectations: [any Expectation<Input, OutputPartTwo>] {
         [
             // TODO: add expectations for part 2
         ]

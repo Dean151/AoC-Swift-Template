@@ -19,7 +19,8 @@ extension Puzzle {
     public static func main() async {
         do {
             // Input resolution
-            let input = try await input()
+            let rawInput = try await rawInput()
+            let input = try await transform(raw: rawInput)
 
             let start = DispatchTime.now()
 
