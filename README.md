@@ -1,10 +1,10 @@
-# Advent of Code Swift Starter Kit
+# AoC-Swift-Template
 
 Attempting the Advent of Code using Swift?
 
 Don't bother finding the input files ; or hard-coding the puzzle input, use this template intead to start quickly!
 
-![Project screenshot](https://raw.githubusercontent.com/Dean151/Advent-of-code-Swift-Starter/master/Screenshot.png)
+![Project screenshot](https://raw.githubusercontent.com/Dean151/AoC-Swift-Template/master/Screenshot.png)
 
 ## Features
 
@@ -19,17 +19,4 @@ Help the project improve itself with your suggestions, issues and pull requests!
 
 ## Usage
 
-Once built, you can use the solver in the Terminal:
-
-##### Run any day:
-
-    ./AdventOfCode-Swift --day 1
-    ./AdventOfCode-Swift --day 2
-
-##### Run all days:
-
-    ./AdventOfCode-Swift --all
-
-##### Print usage & informations
-
-    ./AdventOfCode-Swift --help
+-> TODO
