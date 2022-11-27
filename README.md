@@ -13,9 +13,10 @@ Don't bother finding the input files ; or hard-coding the puzzle input, use this
 - Easy to write tests assertions that are often provided in the puzzle description
 - Execution timer to know how you perform
 
-## Contribute
+## Acknoledgements
 
-Help the project improve itself with your suggestions, issues and pull requests!
+Thanks [@ericwastl](https://twitter.com/ericwastl) for creating Advent of Code and keeping it alive!
+Thanks [@franklefebvre](https://github.com/franklefebvre) for an help on a Swift Generic syntax
 
 ## Get Started
 
@@ -95,3 +96,7 @@ The first four days of 2015 have been solved, and hare in the Examples folder.
 They give some input on what your solution could look like when using this template.
 
 ![Example screenshot](https://raw.githubusercontent.com/Dean151/AoC-Swift-Template/main/Example.png)
+
+## Contribute
+
+Help the project improve itself with your suggestions, issues and pull requests!
