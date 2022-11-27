@@ -15,8 +15,8 @@ Don't bother finding the input files ; or hard-coding the puzzle input, use this
 
 ## Acknoledgements
 
-Thanks [@ericwastl](https://twitter.com/ericwastl) for creating Advent of Code and keeping it alive!
-Thanks [@franklefebvre](https://github.com/franklefebvre) for an help on a Swift Generic syntax
+- Thanks [@ericwastl](https://twitter.com/ericwastl) for creating Advent of Code and keeping it alive!
+- Thanks [@franklefebvre](https://github.com/franklefebvre) for an help on a Swift Generic syntax
 
 ## Get Started
 
