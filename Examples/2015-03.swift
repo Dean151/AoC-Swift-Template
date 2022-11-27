@@ -62,7 +62,7 @@ struct Day03: Puzzle {
     typealias OutputPartTwo = Int
 
     // Passing nil will make the parser to explode all the string char by char
-    public static var componentsSeparator: CharacterSet? {
+    static var componentsSeparator: CharacterSet? {
         nil
     }
 }
