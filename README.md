@@ -4,7 +4,7 @@ Attempting the Advent of Code using Swift?
 
 Don't bother finding the input files ; or hard-coding the puzzle input, use this template intead to start quickly!
 
-![Project screenshot](https://raw.githubusercontent.com/Dean151/AoC-Swift-Template/master/Screenshot.png)
+![Project screenshot](https://raw.githubusercontent.com/Dean151/AoC-Swift-Template/main/Screenshot.png)
 
 ## Features
 
@@ -93,3 +93,5 @@ static var partOneExpectations: [any Expectation<Input, OutputPartOne>] {
 
 The first four days of 2015 have been solved, and hare in the Examples folder.
 They give some input on what your solution could look like when using this template.
+
+![Example screenshot](https://raw.githubusercontent.com/Dean151/AoC-Swift-Template/main/Example.png)
