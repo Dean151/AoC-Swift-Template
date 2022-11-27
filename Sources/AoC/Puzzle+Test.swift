@@ -8,8 +8,8 @@
 //  Check my computing blog on https://www.thomasdurand.fr/
 //
 
-enum TestError: Error {
-    case testFailed(message: String)
+public enum TestError: Error {
+    case expectationFailed(message: String)
 }
 
 public struct Expectation<Input, Output> {
@@ -29,26 +29,25 @@ extension Puzzle {
     public static var partTwoExpectations: [Expectation<Input, OutputPartTwo>] {
         []
     }
-}
 
-extension Puzzle where OutputPartOne: Equatable {
-    public static func testPartOne() async throws {
-        for test in partOneExpectations {
-            let result = try await solvePartOne(test.input)
+    static func testExpectations<Output: Equatable>(_ expectations: [Expectation<Input, Output>], callable: (Input) async throws -> Output) async throws {
+        for test in expectations {
+            let result = try await callable(test.input)
             guard test.expectation == result else {
-                throw TestError.testFailed(message: "Part 1 failed: \(result) do not match expected \(test.expectation) for \(test.input)")
+                throw TestError.expectationFailed(message: "\(result) do not match expected \(test.expectation) for `\(test.input)`")
             }
         }
     }
 }
 
+extension Puzzle where OutputPartOne: Equatable {
+    public static func testPartOne() async throws {
+        try await testExpectations(partOneExpectations, callable: solvePartOne)
+    }
+}
+
 extension Puzzle where OutputPartTwo: Equatable {
     public static func testPartTwo() async throws {
-        for test in partTwoExpectations {
-            let result = try await solvePartTwo(test.input)
-            guard test.expectation == result else {
-                throw TestError.testFailed(message: "Part 2 failed: \(result) do not match expected \(test.expectation) for \(test.input)")
-            }
-        }
+        try await testExpectations(partTwoExpectations, callable: solvePartTwo)
     }
 }

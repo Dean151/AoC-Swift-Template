@@ -16,7 +16,7 @@ public enum ExecutionError: Error {
 }
 
 extension Puzzle {
-    static func solve() async {
+    public static func main() async {
         do {
             // Input resolution
             let input = try await input()
@@ -53,26 +53,5 @@ extension Puzzle {
 
     static func printSeparator() {
         print("––––––––––")
-    }
-}
-
-extension Puzzle {
-    public static func main() async {
-        await solve()
-    }
-}
-
-extension Puzzle where OutputPartOne: Equatable, OutputPartTwo: Equatable {
-    public static func main() async {
-        do {
-            // Tests
-            try await testPartOne()
-            try await testPartTwo()
-        } catch {
-            print("Tests raised an error: \(error)")
-            exit(1)
-        }
-
-        await solve()
     }
 }
