@@ -10,45 +10,63 @@
 
 import Foundation
 
-public enum ExecutionError: Error {
+public enum ExecutionError: Error, CustomStringConvertible {
     case notSolved
     case unsolvable
+
+    public var description: String {
+        switch self {
+        case .unsolvable:
+            return "Puzzle couldn‘t find a solution"
+        case .notSolved:
+            return "Puzzle implementation is not yet provided"
+        }
+    }
 }
 
 extension Puzzle {
     public static func main() async {
+        let input: Input
         do {
             // Input resolution
             let rawInput = try await rawInput()
-            let input = try await transform(raw: rawInput)
+            input = try await transform(raw: rawInput)
+        } catch {
+            print("Input parsing failed: \(error)")
+            exit(1)
+        }
 
-            let start = DispatchTime.now()
+        let start = DispatchTime.now()
 
+        do {
             // Part 1
             let part1 = try await solvePartOne(input)
             print("\(self.self)-1 has been solved!")
             print(part1)
+        } catch {
+            print("\(self.self)-1 failed: \(error)")
+        }
 
-            printSeparator()
+        printSeparator()
 
+        do {
             // Part 2
             let part2 = try await solvePartTwo(input)
             print("\(self.self)-2 has been solved!")
             print(part2)
-
-            printSeparator()
-            printElapsedTime(from: start)
         } catch {
-            print("Execution raised an error: \(error)")
-            exit(1)
+            print("\(self.self)-2 failed: \(error)")
         }
+
+        printSeparator()
+        printElapsedTime(from: start)
     }
 
     static func printElapsedTime(from start: DispatchTime) {
         let elapsed = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
         let formatter = NumberFormatter()
         formatter.minimumIntegerDigits = 1
-        formatter.maximumFractionDigits = 3
+        formatter.maximumFractionDigits = 4
         print("Elapsed time: \(formatter.string(from: NSNumber(value: elapsed))!)s")
     }
 

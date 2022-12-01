@@ -23,8 +23,7 @@ public protocol Puzzle<Input, OutputPartOne, OutputPartTwo> {
     static func transform(raw: String) async throws -> Input
 
     /// The separator to use for the component separation
-    /// Pass nil to parse char by char
-    static var componentsSeparator: CharacterSet? { get }
+    static var componentsSeparator: InputSeparator { get }
 
     static var partOneExpectations: [any Expectation<Input, OutputPartOne>] { get }
     static var partTwoExpectations: [any Expectation<Input, OutputPartTwo>] { get }

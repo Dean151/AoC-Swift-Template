@@ -50,7 +50,7 @@ enum Direction: Parsable {
         case ">":
             return .east
         default:
-            throw InputError.unexpectedInput
+            throw InputError.unexpectedInput(unrecognized: raw)
         }
     }
 }
@@ -62,8 +62,8 @@ struct Day03: Puzzle {
     typealias OutputPartTwo = Int
 
     // Passing nil will make the parser to explode all the string char by char
-    static var componentsSeparator: CharacterSet? {
-        nil
+    static var componentsSeparator: InputSeparator {
+        .breakAll
     }
 }
 

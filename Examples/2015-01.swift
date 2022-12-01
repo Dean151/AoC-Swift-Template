@@ -45,7 +45,7 @@ extension Day01 {
             case ")":
                 return $0 - 1
             default:
-                throw InputError.unexpectedInput
+                throw InputError.unexpectedInput(unrecognized: $1)
             }
         }
     }
@@ -72,7 +72,7 @@ extension Day01 {
             case ")":
                 level -= 1
             default:
-                throw InputError.unexpectedInput
+                throw InputError.unexpectedInput(unrecognized: $1)
             }
             if level == -1 {
                 return index + 1

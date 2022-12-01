@@ -87,7 +87,7 @@ static var partOneExpectations: [any Expectation<Input, OutputPartOne>] {
 
 ### Provided errors:
 
-- When an input is not parsable: `throw InputError.unexpectedInput`
+- When an input is not parsable: `throw InputError.unexpectedInput` or `throw InputError.couldNotCast(target: Double.self)`
 - When a puzzle has no solution (should not happen, but prevent returning a default value): `throw ExecutionError.unsolvable`
 
 ## Examples:

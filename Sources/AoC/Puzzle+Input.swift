@@ -10,12 +10,34 @@
 
 import Foundation
 
-public enum InputError: Error {
-    case unexpectedInput
+public enum InputError: Error, CustomStringConvertible {
+    case unexpectedInput(unrecognized: (any StringProtocol)? = nil)
+    case couldNotCast(target: Any.Type)
+
+    public var description: String {
+        switch self {
+        case .unexpectedInput(unrecognized: let string):
+            guard let string else {
+                return "Input transform encountered an unexpected substring"
+            }
+            return "Input transform encountered unexpected `\(string)`"
+        case .couldNotCast(target: let type):
+            return "Could not cast input to target type `\(type)`"
+        }
+    }
+}
+
+public enum InputSeparator {
+    /// Will break the input character per character
+    case breakAll
+    /// Will break the input using the provided character set
+    case characterSet(set: CharacterSet)
+    /// Will break the input using the exact string provided
+    case string(string: any StringProtocol)
 }
 
 extension Puzzle {
-    public static var componentsSeparator: CharacterSet? { .newlines }
+    public static var componentsSeparator: InputSeparator { .characterSet(set: .newlines) }
 
     static var inputFile: URL {
         Bundle.main.bundleURL.appending(path: "AdventOfCode_\(self.self).bundle/Contents/Resources/input.txt")
@@ -42,12 +64,16 @@ extension Puzzle where Input: Parsable {
 // Thanks @franklefebvre for this generic constraint syntax :)
 extension Puzzle where Input: Sequence, Input.Element: Parsable {
     public static func transform(raw: String) throws -> [Input.Element] {
-        guard let componentsSeparator else {
-            return try raw.map({ char in
-                try .parse(raw: String(char))
-            })
+        let components: [String]
+        switch componentsSeparator {
+        case .breakAll:
+            components = raw.map({ String($0) })
+        case .characterSet(set: let set):
+            components = raw.components(separatedBy: set)
+        case .string(string: let separator):
+            components = raw.components(separatedBy: separator)
         }
-        return try raw.components(separatedBy: componentsSeparator).map {
+        return try components.map {
             try .parse(raw: $0)
         }
     }
@@ -62,7 +88,7 @@ extension String: Parsable {
 extension Int: Parsable {
     public static func parse(raw: String) throws -> Int {
         guard let integer = Int(raw) else {
-            throw InputError.unexpectedInput
+            throw InputError.couldNotCast(target: Int.self)
         }
         return integer
     }
@@ -71,7 +97,7 @@ extension Int: Parsable {
 extension Double: Parsable {
     public static func parse(raw: String) throws -> Double {
         guard let double = Double(raw) else {
-            throw InputError.unexpectedInput
+            throw InputError.couldNotCast(target: Double.self)
         }
         return double
     }
