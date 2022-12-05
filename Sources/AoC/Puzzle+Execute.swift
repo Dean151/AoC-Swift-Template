@@ -26,17 +26,19 @@ public enum ExecutionError: Error, CustomStringConvertible {
 
 extension Puzzle {
     public static func main() async {
+        let start: DispatchTime
         let input: Input
         do {
             // Input resolution
             let rawInput = try await rawInput()
+
+            // Transformation should be included in the computing time ^^
+            start = .now()
             input = try await transform(raw: rawInput)
         } catch {
             print("Input parsing failed: \(error)")
             exit(1)
         }
-
-        let start = DispatchTime.now()
 
         do {
             // Part 1
@@ -66,6 +68,7 @@ extension Puzzle {
         let elapsed = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
         let formatter = NumberFormatter()
         formatter.minimumIntegerDigits = 1
+        formatter.minimumFractionDigits = 4
         formatter.maximumFractionDigits = 4
         print("Elapsed time: \(formatter.string(from: NSNumber(value: elapsed))!)s")
     }
