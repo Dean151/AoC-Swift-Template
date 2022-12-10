@@ -32,7 +32,6 @@ extension Puzzle {
             // Input resolution
             let rawInput = try await rawInput()
 
-            // Transformation should be included in the computing time ^^
             start = .now()
             input = try await transform(raw: rawInput)
         } catch {
@@ -44,7 +43,9 @@ extension Puzzle {
             // Part 1
             let part1 = try await solvePartOne(input)
             print("\(self.self)-1 has been solved!")
-            print(part1)
+            if !(part1 is Void) {
+                print(part1)
+            }
         } catch {
             print("\(self.self)-1 failed: \(error)")
         }
@@ -55,7 +56,9 @@ extension Puzzle {
             // Part 2
             let part2 = try await solvePartTwo(input)
             print("\(self.self)-2 has been solved!")
-            print(part2)
+            if !(part2 is Void) {
+                print(part2)
+            }
         } catch {
             print("\(self.self)-2 failed: \(error)")
         }

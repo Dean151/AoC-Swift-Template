@@ -63,6 +63,13 @@ extension Puzzle {
         []
     }
 
+    static func testSolving<Output>(_ expectations: [any Expectation<Input, Output>], callable: (Input) async throws -> Output) async throws {
+        for test in expectations {
+            let input = try await test.getInput()
+            let _ = try await callable(input)
+        }
+    }
+
     static func testExpectations<Output: Equatable>(_ expectations: [any Expectation<Input, Output>], callable: (Input) async throws -> Output) async throws {
         for test in expectations {
             let input = try await test.getInput()
@@ -71,6 +78,16 @@ extension Puzzle {
                 throw TestError.expectationFailed(message: "\(result) do not match expected \(test.expectation) for `\(input)`")
             }
         }
+    }
+}
+
+extension Puzzle {
+    public static func testPartOne() async throws {
+        try await testSolving(partOneExpectations, callable: solvePartOne)
+    }
+
+    public static func testPartTwo() async throws {
+        try await testSolving(partTwoExpectations, callable: solvePartTwo)
     }
 }
 
