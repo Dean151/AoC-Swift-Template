@@ -21,12 +21,4 @@ final class Day25Tests: XCTestCase {
             XCTFail(message)
         }
     }
-
-    func testPartTwo() async throws  {
-        do {
-            try await Day25.testPartTwo()
-        } catch TestError.expectationFailed(message: let message) {
-            XCTFail(message)
-        }
-    }
 }

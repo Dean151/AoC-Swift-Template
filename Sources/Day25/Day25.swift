@@ -17,7 +17,7 @@ import Common
 struct Day25: Puzzle {
     typealias Input = String
     typealias OutputPartOne = Never
-    typealias OutputPartTwo = Never
+    typealias OutputPartTwo = Void
 }
 
 // MARK: - PART 1
@@ -35,17 +35,8 @@ extension Day25 {
     }
 }
 
-// MARK: - PART 2
+// MARK: No Part 2 ; Merry Christmas!
 
 extension Day25 {
-    static var partTwoExpectations: [any Expectation<Input, OutputPartTwo>] {
-        [
-            // TODO: add expectations for part 2
-        ]
-    }
-
-    static func solvePartTwo(_ input: Input) async throws -> OutputPartTwo {
-        // TODO: Solve part 2 :)
-        throw ExecutionError.notSolved
-    }
+    static func solvePartTwo(_ input: Input) async throws -> Void {}
 }
