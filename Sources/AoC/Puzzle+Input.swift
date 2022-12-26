@@ -36,16 +36,32 @@ public enum InputSeparator {
     case string(string: any StringProtocol)
 }
 
+public enum RawInputTrimMode {
+    /// Will not trim anything
+    case none
+    /// Will trim using the given character set
+    case trim(set: CharacterSet)
+}
+
 extension Puzzle {
     public static var componentsSeparator: InputSeparator { .characterSet(set: .newlines) }
+    public static var rawInputTrimMode: RawInputTrimMode { .trim(set: .whitespacesAndNewlines) }
+}
 
+extension Puzzle {
     static var inputFile: URL {
         Bundle.main.bundleURL.appending(path: "AdventOfCode_\(self.self).bundle/Contents/Resources/input.txt")
     }
 
     /// Get the input file content as a unique string
     public static func rawInput() throws -> String {
-        try String(contentsOf: inputFile).trimmingCharacters(in: .whitespacesAndNewlines)
+        let raw = try String(contentsOf: inputFile)
+        switch rawInputTrimMode {
+        case .none:
+            return raw
+        case .trim(set: let set):
+            return raw.trimmingCharacters(in: set)
+        }
     }
 }
 

@@ -22,6 +22,9 @@ public protocol Puzzle<Input, OutputPartOne, OutputPartTwo> {
     /// Should transform the raw string input into the required Input
     static func transform(raw: String) async throws -> Input
 
+    /// The trimming method to use on the input
+    static var rawInputTrimMode: RawInputTrimMode { get }
+
     /// The separator to use for the component separation
     static var componentsSeparator: InputSeparator { get }
 
