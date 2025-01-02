@@ -11,7 +11,7 @@
 import Foundation
 
 public enum InputError: Error, CustomStringConvertible {
-    case unexpectedInput(unrecognized: (any StringProtocol)? = nil)
+    case unexpectedInput(unrecognized: (any StringProtocol&Sendable)? = nil)
     case couldNotCast(target: Any.Type)
 
     public var description: String {
